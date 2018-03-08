@@ -1,0 +1,6 @@
+[submodule "Lib/bq27421"]
+	path = Lib/bq27421
+	url = https://github.com/svcguy/lib-BQ27421
+[submodule "Lib/bq24157"]
+	path = Lib/bq24157
+	url = https://github.com/svcguy/lib-BQ24157
