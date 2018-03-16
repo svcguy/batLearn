@@ -57,6 +57,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "bq27421.h"
 #include "bq24157.h"
 
@@ -66,6 +67,8 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+#define APP_VER_MAJOR   0
+#define APP_VER_MINOR   2
 
 /* USER CODE END PV */
 
@@ -119,10 +122,14 @@ int main(void)
   MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
+  HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_Base_Start_IT(&htim7);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  printf("\n\rBattery Learning App v%d.%d\n\r", APP_VER_MAJOR, APP_VER_MINOR);
   while (1)
   {
 
@@ -204,6 +211,48 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == BUTTON_1_Pin)
+  { // Button 1 pushed
+    
+  }
+  else if(GPIO_Pin == BUTTON_2_Pin)
+  { // Button 2 pushed
+    
+  }
+  else if(GPIO_Pin == SDIO_CD_Pin)
+  { // Card Detect Change
+    if(HAL_GPIO_ReadPin(SDIO_CD_GPIO_Port, SDIO_CD_Pin) == 0)
+    { // Card Inserted
+      
+    }
+    else
+    { // Card Removed
+      
+    }
+  }
+  else
+  { // Error
+    _Error_Handler(__FILE__, __LINE__);
+  }
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if(htim->Instance == htim7.Instance)
+  { // 1 millisecond timer
+
+  }
+  else if(htim->Instance == htim6.Instance)
+  { // 1 second timer
+    
+  }
+  else
+  { // error
+    _Error_Handler(__FILE__, __LINE__);
+  }
+}
 /* USER CODE END 4 */
 
 /**
@@ -216,8 +265,11 @@ void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+  printf("Error: file %s on line %d\r\n", file, line);
+  __BKPT(0);
   while(1)
   {
+
   }
   /* USER CODE END Error_Handler_Debug */
 }
@@ -233,8 +285,12 @@ void _Error_Handler(char *file, int line)
 void assert_failed(uint8_t* file, uint32_t line)
 { 
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  printf("Wrong parameters value: file %s on line %ld\r\n", file, line);
+  __BKPT(0);
+  while(1)
+  {
+
+  }
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

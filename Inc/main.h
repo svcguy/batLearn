@@ -66,25 +66,28 @@
 #define DEBUG_RX_GPIO_Port GPIOA
 #define SDIO_CD_Pin GPIO_PIN_2
 #define SDIO_CD_GPIO_Port GPIOA
+#define SDIO_CD_EXTI_IRQn EXTI2_IRQn
 #define LED_1_Pin GPIO_PIN_12
 #define LED_1_GPIO_Port GPIOE
 #define LED_2_Pin GPIO_PIN_15
 #define LED_2_GPIO_Port GPIOE
 #define BUTTON_2_Pin GPIO_PIN_10
 #define BUTTON_2_GPIO_Port GPIOA
+#define BUTTON_2_EXTI_IRQn EXTI15_10_IRQn
 #define RELAY_2_Pin GPIO_PIN_8
 #define RELAY_2_GPIO_Port GPIOB
 #define RELAY_1_Pin GPIO_PIN_9
 #define RELAY_1_GPIO_Port GPIOB
 #define BUTTON_1_Pin GPIO_PIN_0
 #define BUTTON_1_GPIO_Port GPIOE
+#define BUTTON_1_EXTI_IRQn EXTI0_IRQn
 
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the 
   *        HAL drivers code
   */
-/* #define USE_FULL_ASSERT    1U */
+ #define USE_FULL_ASSERT    1U 
 
 /* USER CODE BEGIN Private defines */
 
